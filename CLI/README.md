@@ -34,7 +34,7 @@
 
 # Other Version
 1. [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version")
-2. [Over Private Network](# "This version is under planning.")
+2. [Over Wi-Fi Network](# "This version is under planning.")
 
 <p align="center">
 <h4 align="center">Show some ❤️ by starring this <a href="#">repositorie!</a></h4>

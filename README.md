@@ -21,7 +21,7 @@
 
 ## Introduction
 
-- Hello, Welcome to **Tic-Tac-Toe** repository. It's a Tic Tac Toe  game implementation in java. With different form like [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version"), [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version") and Over Private Network on computer.
+- Hello, Welcome to **Tic-Tac-Toe** repository. It's a Tic Tac Toe  game implementation in java. With different form like [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version"), [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version") and Over Wi-Fi Network on computer.
 - **"Suggestions are welcome"**, put your suggestions in issue.
 
 ## Prerequisite 
@@ -37,7 +37,7 @@
 
 1. [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version")
 2. [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version")
-3. [Over Private Network](# "This version is under planning.")
+3. [Over Wi-Fi Network](# "This version is under planning.")
 
 
 <p align="center">
