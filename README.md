@@ -1,4 +1,7 @@
-<h1 align="center"> Tic Tac Toe</h1>
+<p align="center">
+	<img width=250px src="https://user-images.githubusercontent.com/55116730/107869078-47a18800-6eb0-11eb-8766-de64e4a238bc.png" alt="Tic Tac Toe image" title="Tic Tac Toe image form Wikipedia"/>
+	<h1 align=center> Tic Tac Toe</h1>
+</p>
 
 <p align="center">
 	<a href="https://github.com/urvesh254" title="profile">
@@ -13,19 +16,13 @@
 
 ## Table of contents
 * [Introduction](#introduction)
-* [Version](#version)
 * [Prerequisite](#prerequisite)
+* [Version](#version)
 
 ## Introduction
 
 - Hello, Welcome to **Tic-Tac-Toe** repository. It's a Tic Tac Toe  game implementation in java. With different form like [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version"), [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version") and Over Private Network on computer.
 - **"Suggestions are welcome"**, put your suggestions in issue.
-
-## Version 
-
-1. [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version")
-2. [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version")
-3. [Over Private Network](# "This version is under planning.")
 
 ## Prerequisite 
 -   For run **Tic Tac Toe** in you system you want to install some softwares.
@@ -35,3 +32,14 @@
 		 - [NetBeans](https://netbeans.org/ "NetBeans IDE")
 		 - [Atom](https://atom.io/ "Atom")
 		 - [Notepad++](https://notepad-plus-plus.org/downloads/ "Notepad++")
+
+## Version 
+
+1. [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version")
+2. [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version")
+3. [Over Private Network](# "This version is under planning.")
+
+
+<p align="center">
+<h4 align="center">Show some ❤️ by starring this <a href="#">repositorie!</a></h4>
+</p>
