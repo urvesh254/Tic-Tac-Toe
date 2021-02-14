@@ -15,7 +15,8 @@
 * [Introduction](#introduction)
 * [Prerequisite](#prerequisite)
 * [Execution](#execution)
-* [Video](#Video)
+* [Video](#video)
+* [Workflow](#workflow)
 * [Other Version](#other-version)
 
 ## Introduction
@@ -49,6 +50,9 @@
 ## Video
 ![Tic-Tac-Toe GUI](https://user-images.githubusercontent.com/55116730/107873373-218fde00-6ed8-11eb-9ff4-90d3e2de2f9a.gif "Tic-Tac-Toe GUI")
 
+## Workflow
+- Download workflow : [Link](https://github.com/urvesh254/Tic-Tac-Toe/blob/main/GUI/assets/TicTacToe%20Wireframe.png "Wireflow Link")</br></br>
+	<a href="https://github.com/urvesh254/Tic-Tac-Toe/blob/main/GUI/assets/TicTacToe%20Wireframe.png" alt="Tic Tac Toe Workflow" title="Tic Tac Toe Workflow">	<img src="https://github.com/urvesh254/Tic-Tac-Toe/blob/main/GUI/assets/TicTacToe%20Wireframe.png" alt="Tic Tac Toe Workflow" title="Tic Tac Toe Workflow" width=500px></a>
 
 # Other Version
 1. [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version")
