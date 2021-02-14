@@ -1,4 +1,4 @@
-<h1 align="center">CLI of Tic Tac Toe</h1>
+<h1 align="center">Tic Tac Toe (CLI)</h1>
 
 <p align="center">
 	<a href="https://github.com/urvesh254" title="profile">

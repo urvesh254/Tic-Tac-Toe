@@ -1,4 +1,4 @@
-<h1 align="center">Two Player</h1>
+<h1 align="center">TIc Tac Toe (Two Player)</h1>
 
 <p align="center">
 	<a href="https://github.com/urvesh254" title="profile">
