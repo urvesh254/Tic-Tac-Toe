@@ -66,8 +66,12 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public JLabel getGameLabel() {
-        return this.gameLabel;
+    public String getGameLabelText() {
+        return this.gameLabel.getText();
+    }
+
+    public void setGameLabelText(String text) {
+        this.gameLabel.setText(text);
     }
 
     public Button[][] getBoard() {

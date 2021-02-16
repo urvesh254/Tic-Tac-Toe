@@ -95,4 +95,8 @@ public class InfoPanel extends JPanel {
     public String getServerPortNo() {
         return this.serverPortNo.getText();
     }
+
+    public JButton getConnectButton() {
+        return this.connect;
+    }
 }
