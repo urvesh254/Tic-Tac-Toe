@@ -8,6 +8,7 @@ public class GamePanel extends JPanel {
     private Button[][] board;
     private JLabel gameLabel;
     private JPanel btnPanel;
+    private JButton btnStartNew, btnRestart;
 
     public GamePanel() {
         try {
@@ -34,12 +35,12 @@ public class GamePanel extends JPanel {
             // Start New Game and Restart Game buttons.
             btnPanel = new JPanel();
 
-            JButton btnStartNew = new JButton("Start New");
+            btnStartNew = new JButton("Start New");
             btnStartNew.setFont(new Font("Arial", Font.BOLD, 20));
             btnStartNew.setAlignmentX(CENTER_ALIGNMENT);
             btnPanel.add(btnStartNew);
 
-            JButton btnRestart = new JButton("Restart");
+            btnRestart = new JButton("Restart");
             btnRestart.setFont(new Font("Arial", Font.BOLD, 20));
             btnRestart.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public boolean addBtnPanel() {
+    public boolean addButtonPanel() {
         try {
             this.add(btnPanel);
             return true;
@@ -58,7 +59,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    public boolean removeBtnPanel() {
+    public boolean removeButtonPanel() {
         try {
             this.remove(btnPanel);
             return true;
@@ -73,5 +74,13 @@ public class GamePanel extends JPanel {
 
     public Button[][] getBoard() {
         return this.board;
+    }
+
+    public JButton getStartNewButton() {
+        return this.btnStartNew;
+    }
+
+    public JButton getRestartButton() {
+        return this.btnRestart;
     }
 }
