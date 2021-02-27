@@ -10,14 +10,11 @@ public class WaitingPanel extends JPanel implements Runnable {
     public static final String WAITING_TEXT = "Waiting for another player.";
 
     public WaitingPanel() {
-        this.setLayout(new BorderLayout());
-        this.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-        this.setAlignmentY(JFrame.CENTER_ALIGNMENT);
+        this.setLayout(new GridBagLayout());
 
         waitingLabel = new JLabel(WAITING_TEXT);
-        waitingLabel.setAlignmentX(JFrame.CENTER_ALIGNMENT);
         waitingLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        this.add(waitingLabel, BorderLayout.CENTER);
+        this.add(waitingLabel);
 
         t = new Thread(this, "Waiting");
         t.start();
