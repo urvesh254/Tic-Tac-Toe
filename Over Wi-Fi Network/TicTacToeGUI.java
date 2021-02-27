@@ -1,7 +1,7 @@
-import javax.sound.sampled.Port;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 
 import java.awt.CardLayout;
@@ -15,6 +15,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener {
 
     private CardLayout card;
     private InfoPanel infoPanel;
+    private WaitingPanel waitingPanel;
     private GamePanel gamePanel;
     private ClientSocket socket;
 
@@ -28,10 +29,12 @@ public class TicTacToeGUI extends JFrame implements ActionListener {
             this.setLayout(card);
 
             infoPanel = new InfoPanel();
+            waitingPanel = new WaitingPanel();
             gamePanel = new GamePanel();
 
             assignActionListenerToButtons();
 
+            // this.add(waitingPanel, "waitingPanel");
             this.add(infoPanel, "infoPanel");
             this.add(gamePanel, "gamePanel");
 
@@ -59,11 +62,12 @@ public class TicTacToeGUI extends JFrame implements ActionListener {
                 socket = new ClientSocket(hostName, port);
                 try {
                     socket.connectToServer();
+                    card.show(this.getContentPane(), "waitingPanel");
+                } catch (UnknownHostException e) {
+                    showMessage("Unknown Host Error", "Server is not running at Host Name : " + hostName);
                 } catch (Exception e) {
-                    showMessage("Eoor", "Something is wrong.");
+                    showMessage("Error", "Something is wrong.");
                 }
-                // card.show(this.getContentPane(), "waitingPanel");
-                card.show(this.getContentPane(), "gamePanel");
             }
         });
 
@@ -93,6 +97,8 @@ public class TicTacToeGUI extends JFrame implements ActionListener {
             if (port < 1 && port > 65535) {
                 throw new NumberFormatException();
             }
+
+            socket = new ClientSocket(hostName, port);
 
             return true;
         } catch (NumberFormatException e) {
