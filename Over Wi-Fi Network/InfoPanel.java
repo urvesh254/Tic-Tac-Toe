@@ -82,6 +82,13 @@ public class InfoPanel extends JPanel {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        setInfo();
+    }
+
+    private void setInfo() {
+        serverAddress.setText("ukpatel");
+        serverPortNo.setText("3334");
     }
 
     public String getPlayerName() {
