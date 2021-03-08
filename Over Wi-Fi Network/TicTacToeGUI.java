@@ -49,11 +49,11 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
             this.add(waitingPanel, "waitingPanel");
             this.add(gamePanel, "gamePanel");
 
-            setTitle("Tic Tac Toe");
-            setSize(500, 500);
+            this.setTitle("Tic Tac Toe");
+            this.setSize(500, 500);
             this.setResizable(false);
-            setLocationRelativeTo(null);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setLocationRelativeTo(null);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } catch (Exception e) {
             System.out.println("Something wrong.");
@@ -63,6 +63,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        System.out.println("button pressed.");
         try {
             System.out.println(chance + " " + player.getTurn());
             if (chance == player.getTurn()) {
@@ -79,7 +80,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
 
                 board[row][col].setText(player.getChar());
                 waitingForOtherPlayerResponce(otherPlayer);
-
+                System.out.println("back to action perform.");
                 chance = !chance;
 
                 // socket.sendObject(new GameRunning(!chance, row, col));
@@ -95,8 +96,8 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
     }
 
     private void waitingForOtherPlayerResponce(Player p1) {
-        if (chance != p1.getTurn()) {
-            System.out.println(player.getName() + " " + chance + " " + otherPlayer.getTurn());
+        if (chance == p1.getTurn()) {
+            System.out.println("In waiting player " + player.getName() + " " + chance + " " + otherPlayer.getTurn());
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -163,14 +164,16 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
             player.setTurn(!otherPlayer.getTurn());
             player.setChar(otherPlayer.getChar().equals(Player.X) ? Player.O : Player.X);
 
-            System.out.println("player : " + player.getName() + " " + player.getChar());
-            System.out.println("otherPlayer : " + otherPlayer.getName() + " " + otherPlayer.getChar());
+            // System.out.println("player : " + player.getName() + " " + player.getChar());
+            // System.out.println("otherPlayer : " + otherPlayer.getName() + " " + otherPlayer.getChar());
+            System.out.println(player);
+            System.out.println(otherPlayer);
 
             setGameLabel();
 
             card.show(this.getContentPane(), "gamePanel");
 
-            waitingForOtherPlayerResponce(player);
+            waitingForOtherPlayerResponce(otherPlayer);
         } catch (Exception e) {
             e.printStackTrace();
         }

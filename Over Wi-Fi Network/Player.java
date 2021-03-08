@@ -30,4 +30,9 @@ public class Player implements Serializable {
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Name = %s, Char = %s, Turn = %b", this.name, this.ch, this.turn);
+    }
 }
