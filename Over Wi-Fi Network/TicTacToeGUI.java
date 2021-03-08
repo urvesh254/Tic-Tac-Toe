@@ -15,7 +15,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
      *
      */
     private static final long serialVersionUID = 1L;
-    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private CardLayout card;
     private InfoPanel infoPanel;
@@ -84,7 +84,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                 System.out.println("back to action perform.");
                 chance = !chance;
 
-                waitingForOtherPlayerResponce(otherPlayer);
+                // waitingForOtherPlayerResponce();
                 // socket.sendObject(new GameRunning(!chance, row, col));
                 socket.sendObject(new GameRunning(row, col));
 
@@ -97,18 +97,19 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
         }
     }
 
-    private void waitingForOtherPlayerResponce(Player p1) {
-        if (chance == p1.getTurn()) {
-            System.out.println("In waiting player " + player.getName() + " " + chance + " " + otherPlayer.getTurn());
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
+    private void waitingForOtherPlayerResponce() {
+        // if (chance == p1.getTurn()) {
+        // System.out.println("In waiting player " + player.getName() + " " + chance + " " + otherPlayer.getTurn());
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
                         Object obj = socket.reciveObject();
 
                         if (obj instanceof GameRunning) {
                             GameRunning gr = (GameRunning) obj;
-                            board[gr.row][gr.col].setText(p1.getChar());
+                            board[gr.row][gr.col].setText(otherPlayer.getChar());
 
                             chance = !chance;
 
@@ -119,13 +120,15 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                             System.out.println(gOver.winPlayer);
                             System.out.println("Game is over.");
                             exitMessage(gOver);
+                            break;
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        }
+            }
+        });
+        // }
     }
 
     private void assignActionListenerToButtons() {
@@ -176,7 +179,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
 
             card.show(this.getContentPane(), "gamePanel");
 
-            waitingForOtherPlayerResponce(otherPlayer);
+            waitingForOtherPlayerResponce();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -230,7 +233,26 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);
     }
 
+    private void makeDisable(GameOver ge) {
+        for (int row = 0; row < GamePanel.BOARD_LENGTH; row++) {
+            for (int col = 0; col < GamePanel.BOARD_LENGTH; col++) {
+                board[row][col].setEnabled(false);
+                board[row][col].removeActionListener(this);
+            }
+        }
+
+        if (ge.winPlayer != null) {
+            board[ge.r1][ge.c1].setEnabled(true);
+            board[ge.r1][ge.c1].setBackground(Button.WIN_COLOR);
+            board[ge.r2][ge.c2].setEnabled(true);
+            board[ge.r2][ge.c2].setBackground(Button.WIN_COLOR);
+            board[ge.r3][ge.c3].setEnabled(true);
+            board[ge.r3][ge.c3].setBackground(Button.WIN_COLOR);
+        }
+    }
+
     private void exitMessage(GameOver ge) {
+        makeDisable(ge);
         String message = "";
         if (ge.winPlayer != null) {
             if (ge.winPlayer.getName().equals(player.getName())) {
