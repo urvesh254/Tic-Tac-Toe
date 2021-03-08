@@ -56,12 +56,10 @@ public class Server {
         } catch (SocketException e) {
             try {
                 player1.sendObject(String.format("%s left the game.", player2.player.getName()));
-                System.out.println("message sent to player 1");
             } catch (Exception ex) {
             }
             try {
                 player2.sendObject(String.format("%s left the game.", player1.player.getName()));
-                System.out.println("message sent to player 2");
             } catch (Exception ex) {
             }
             isRunning = false;
