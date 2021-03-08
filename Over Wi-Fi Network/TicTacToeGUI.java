@@ -4,6 +4,8 @@ import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.awt.event.ActionEvent;
 
 import java.awt.CardLayout;
@@ -14,6 +16,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
      *
      */
     private static final long serialVersionUID = 1L;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     private CardLayout card;
     private InfoPanel infoPanel;
@@ -98,7 +101,7 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
     private void waitingForOtherPlayerResponce(Player p1) {
         if (chance == p1.getTurn()) {
             System.out.println("In waiting player " + player.getName() + " " + chance + " " + otherPlayer.getTurn());
-            SwingUtilities.invokeLater(new Runnable() {
+            executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
