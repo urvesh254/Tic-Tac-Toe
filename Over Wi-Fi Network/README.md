@@ -12,4 +12,4 @@
 
 -   Currently, prototype is done.
 
-<video src="https://user-images.githubusercontent.com/55116730/110314766-4afede00-802e-11eb-8ba7-3a2191618e78.mp4" ></video>
+<img src="https://user-images.githubusercontent.com/55116730/110315373-2bb48080-802f-11eb-9ae9-c67ae029183b.gif" alt="Tic Tac Toe Over Network" title="Tic Tac Toe Over Network"/>
