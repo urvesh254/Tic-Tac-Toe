@@ -1,13 +1,14 @@
 import java.net.*;
 import java.util.Arrays;
+import java.util.concurrent.*;
 
 import javax.swing.SwingUtilities;
 
 import java.io.*;
-import java.lang.reflect.Array;
 
 public class Server {
     private static final int BOARD_LENGTH = GamePanel.BOARD_LENGTH;
+    private static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     private static int PORT = 3334;
     private static String HOST_NAME;
@@ -46,7 +47,6 @@ public class Server {
     public Server(Socket player1Socket, Socket player2Socket) throws Exception {
         this.player1 = new PlayerInfo(player1Socket);
         this.player2 = new PlayerInfo(player2Socket);
-
         for (int row = 0; row < BOARD_LENGTH; row++) {
             for (int col = 0; col < BOARD_LENGTH; col++) {
                 board[row][col] = "";
@@ -179,9 +179,11 @@ public class Server {
                 Socket player2Socket = server.accept();
                 System.out.println("Player 2 is connected.");
 
-                SwingUtilities.invokeLater(new Runnable() {
+                // SwingUtilities.invokeLater(new Runnable() {
+                executorService.execute(new Runnable() {
                     @Override
                     public void run() {
+
                         try {
                             new Server(player1Socket, player2Socket);
                         } catch (Exception e) {
