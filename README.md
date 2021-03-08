@@ -37,7 +37,7 @@
 
 1. [CLI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/CLI "CLI Version")
 2. [GUI](https://github.com/urvesh254/Tic-Tac-Toe/tree/main/GUI "GUI Version")
-3. [Over Wi-Fi Network](# "This version is under planning.")
+3. [Over Wi-Fi Network]("https://github.com/urvesh254/Tic-Tac-Toe/tree/main/Over%20Wi-Fi%20Network" "Prototype is done.")
 
 
 <p align="center">
