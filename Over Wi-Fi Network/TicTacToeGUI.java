@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
@@ -117,8 +116,9 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                         } else {
                             GameOver gOver = (GameOver) obj;
                             System.out.println(gOver.isWin);
-                            System.out.println(gOver.winPlayer.getName());
+                            System.out.println(gOver.winPlayer);
                             System.out.println("Game is over.");
+                            exitMessage(gOver);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -228,6 +228,23 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
 
     private void showMessage(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void exitMessage(GameOver ge) {
+        String message = "";
+        if (ge.winPlayer != null) {
+            if (ge.winPlayer.getName().equals(player.getName())) {
+                gamePanel.setGameLabelText("Congratulation, You won.");
+            } else {
+                // message = "Congratulation " + ge.winPlayer.getName() + ", You win the game.";
+                gamePanel.setGameLabelText("You lost.");
+            }
+        } else {
+            message = "Game Draw.";
+            gamePanel.setGameLabelText(message);
+        }
+
+        // showMessage("Result", message);
     }
 
     public static void main(String[] args) {

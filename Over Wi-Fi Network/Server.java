@@ -157,6 +157,8 @@ public class Server {
         player1.sendObject(gOver);
         player2.sendObject(gOver);
 
+        System.out.println(winPlayer);
+
         isRunning = false;
     }
 
