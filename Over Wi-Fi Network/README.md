@@ -12,4 +12,4 @@
 
 -   Currently, prototype is done.
 
-https://user-images.githubusercontent.com/55116730/110314766-4afede00-802e-11eb-8ba7-3a2191618e78.mp4
+<video src="https://user-images.githubusercontent.com/55116730/110314766-4afede00-802e-11eb-8ba7-3a2191618e78.mp4" ></video>
