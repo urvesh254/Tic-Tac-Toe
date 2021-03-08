@@ -79,10 +79,10 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                 }
 
                 board[row][col].setText(player.getChar());
-                waitingForOtherPlayerResponce(otherPlayer);
                 System.out.println("back to action perform.");
                 chance = !chance;
 
+                waitingForOtherPlayerResponce(otherPlayer);
                 // socket.sendObject(new GameRunning(!chance, row, col));
                 socket.sendObject(new GameRunning(row, col));
 
