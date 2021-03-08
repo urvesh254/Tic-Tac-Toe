@@ -51,7 +51,24 @@ public class Server {
             }
         }
 
-        gameStart();
+        try {
+            exchangeInfo();
+        } catch (SocketException e) {
+            try {
+                player1.sendObject(String.format("%s left the game.", player2.player.getName()));
+                System.out.println("message sent to player 1");
+            } catch (Exception ex) {
+            }
+            try {
+                player2.sendObject(String.format("%s left the game.", player1.player.getName()));
+                System.out.println("message sent to player 2");
+            } catch (Exception ex) {
+            }
+            isRunning = false;
+        } catch (Exception e) {
+
+        }
+
     }
 
     private void printBoard() {
@@ -60,7 +77,7 @@ public class Server {
         }
     }
 
-    private void gameStart() throws Exception {
+    private void exchangeInfo() throws Exception {
 
         // First taking players info.
         player1.player = (Player) player1.receiveObject();
@@ -76,6 +93,10 @@ public class Server {
         player1.sendObject(player2.player);
         player2.sendObject(player1.player);
 
+        gameStart();
+    }
+
+    private void gameStart() throws Exception {
         while (isRunning) {
             if (chance) {
                 playTurn(player1);
@@ -87,9 +108,9 @@ public class Server {
 
             if (emptySpace == 0 && winPlayer == null) {
                 exitMessage(new GameOver());
-                // makeDisable(-1, -1, -1, -1, -1, -1);
             }
         }
+
     }
 
     private void playTurn(PlayerInfo player) throws Exception {
@@ -179,7 +200,6 @@ public class Server {
                 Socket player2Socket = server.accept();
                 System.out.println("Player 2 is connected.");
 
-                // SwingUtilities.invokeLater(new Runnable() {
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {

@@ -26,8 +26,8 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
     private Button[][] board;
 
     private String playerName;
-    private String hostName = "UKPatel";
-    private int port = 3334;
+    private String hostName;
+    private int port;
 
     private boolean chance = true;
     private Player player;
@@ -63,29 +63,55 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
         }
     }
 
+    private void assignActionListenerToButtons() {
+        // Adding actionlistener for connect button.
+        infoPanel.getConnectButton().addActionListener(evt -> {
+            if (checkValidation()) {
+                socket = new ClientSocket(hostName, port);
+                try {
+                    socket.connectToServer();
+                    System.out.println("Connected to server.");
+                    card.show(this.getContentPane(), "waitingPanel");
+                    t.start();
+                } catch (UnknownHostException e) {
+                    showMessage("Unknown Host Error", "Server is not running at Host Name : " + hostName);
+                } catch (Exception e) {
+                    showMessage("Error", "Something is wrong.");
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        gamePanel.getStartNewButton().addActionListener(evt -> {
+            resetData();
+            gamePanel.removeButtonPanel();
+        });
+
+        // Assign all button to this action listener.
+        for (int row = 0; row < GamePanel.BOARD_LENGTH; row++) {
+            for (int col = 0; col < GamePanel.BOARD_LENGTH; col++) {
+                board[row][col].addActionListener(this);
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("button pressed.");
         try {
-            System.out.println(chance + " " + player.getTurn());
             if (chance == player.getTurn()) {
                 Button btn = (Button) evt.getSource();
                 int row = btn.row;
                 int col = btn.col;
 
                 // If selected index is occupid then show error.
-                System.out.println(isOccupied(row, col));
                 if (isOccupied(row, col)) {
                     showMessage("Error", "Sorry, This place is occupied. Select another.");
                     return;
                 }
 
                 board[row][col].setText(player.getChar());
-                System.out.println("back to action perform.");
                 chance = !chance;
 
-                // waitingForOtherPlayerResponce();
-                // socket.sendObject(new GameRunning(!chance, row, col));
                 socket.sendObject(new GameRunning(row, col));
 
                 setGameLabel();
@@ -97,9 +123,29 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
         }
     }
 
+    @Override
+    public void run() {
+        try {
+            socket.sendObject(player);
+            otherPlayer = (Player) socket.reciveObject();
+
+            player.setTurn(!otherPlayer.getTurn());
+            player.setChar(otherPlayer.getChar().equals(Player.X) ? Player.O : Player.X);
+
+            System.out.println(player);
+            System.out.println(otherPlayer);
+
+            setGameLabel();
+
+            card.show(this.getContentPane(), "gamePanel");
+
+            waitingForOtherPlayerResponce();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void waitingForOtherPlayerResponce() {
-        // if (chance == p1.getTurn()) {
-        // System.out.println("In waiting player " + player.getName() + " " + chance + " " + otherPlayer.getTurn());
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -114,12 +160,14 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                             chance = !chance;
 
                             setGameLabel();
-                        } else {
+                        } else if (obj instanceof GameOver) {
                             GameOver gOver = (GameOver) obj;
-                            System.out.println(gOver.isWin);
-                            System.out.println(gOver.winPlayer);
-                            System.out.println("Game is over.");
                             exitMessage(gOver);
+                            break;
+                        } else {
+                            String message = (String) obj;
+                            showMessage("Information", message);
+                            resetData();
                             break;
                         }
                     }
@@ -128,61 +176,6 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
                 }
             }
         });
-        // }
-    }
-
-    private void assignActionListenerToButtons() {
-
-        // Adding actionlistener for connect button.
-        infoPanel.getConnectButton().addActionListener(evt -> {
-            if (checkValidation()) {
-                playerName = infoPanel.getPlayerName();
-                socket = new ClientSocket(hostName, port);
-                try {
-                    socket.connectToServer();
-                    System.out.println("Connected to server.");
-                    card.show(this.getContentPane(), "waitingPanel");
-                    t.start();
-
-                } catch (UnknownHostException e) {
-                    showMessage("Unknown Host Error", "Server is not running at Host Name : " + hostName);
-                } catch (Exception e) {
-                    showMessage("Error", "Something is wrong.");
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        // Assign all button to this action listener.
-        for (int row = 0; row < GamePanel.BOARD_LENGTH; row++) {
-            for (int col = 0; col < GamePanel.BOARD_LENGTH; col++) {
-                board[row][col].addActionListener(this);
-            }
-        }
-    }
-
-    @Override
-    public void run() {
-        try {
-            socket.sendObject(player);
-            otherPlayer = (Player) socket.reciveObject();
-
-            player.setTurn(!otherPlayer.getTurn());
-            player.setChar(otherPlayer.getChar().equals(Player.X) ? Player.O : Player.X);
-
-            // System.out.println("player : " + player.getName() + " " + player.getChar());
-            // System.out.println("otherPlayer : " + otherPlayer.getName() + " " + otherPlayer.getChar());
-            System.out.println(player);
-            System.out.println(otherPlayer);
-
-            setGameLabel();
-
-            card.show(this.getContentPane(), "gamePanel");
-
-            waitingForOtherPlayerResponce();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void setGameLabel() {
@@ -223,10 +216,24 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
         } catch (NumberFormatException e) {
             showMessage("Error", "Port should be number from 1-65536");
         } catch (Exception e) {
-            // System.out.println(e.getMessage());
             showMessage("Error", e.getMessage());
         }
         return false;
+    }
+
+    private void resetData() {
+        for (int row = 0; row < GamePanel.BOARD_LENGTH; row++) {
+            for (int col = 0; col < GamePanel.BOARD_LENGTH; col++) {
+                board[row][col].setText("");
+                board[row][col].setEnabled(true);
+                board[row][col].setBackground(null);
+                board[row][col].removeActionListener(this);
+                board[row][col].addActionListener(this);
+            }
+        }
+        chance = true;
+        this.card.show(this.getContentPane(), "infoPanel");
+        t = new Thread(this);
     }
 
     private void showMessage(String title, String message) {
@@ -253,20 +260,17 @@ public class TicTacToeGUI extends JFrame implements ActionListener, Runnable {
 
     private void exitMessage(GameOver ge) {
         makeDisable(ge);
-        String message = "";
         if (ge.winPlayer != null) {
             if (ge.winPlayer.getName().equals(player.getName())) {
                 gamePanel.setGameLabelText("Congratulation, You won.");
             } else {
-                // message = "Congratulation " + ge.winPlayer.getName() + ", You win the game.";
                 gamePanel.setGameLabelText("You lost.");
             }
         } else {
-            message = "Game Draw.";
-            gamePanel.setGameLabelText(message);
+            gamePanel.setGameLabelText("Game Draw.");
         }
 
-        // showMessage("Result", message);
+        gamePanel.addButtonPanel();
     }
 
     public static void main(String[] args) {

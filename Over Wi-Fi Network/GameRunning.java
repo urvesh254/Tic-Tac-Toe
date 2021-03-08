@@ -6,7 +6,6 @@ public class GameRunning implements Serializable {
     public boolean chance;
 
     public GameRunning(int row, int col) {
-        // this.chance = chance;
         this.row = row;
         this.col = col;
     }

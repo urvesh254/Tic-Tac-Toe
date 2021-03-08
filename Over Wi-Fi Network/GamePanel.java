@@ -50,7 +50,7 @@ public class GamePanel extends JPanel {
 
     public boolean addButtonPanel() {
         try {
-            this.add(btnPanel);
+            this.add(btnPanel, BorderLayout.SOUTH);
             return true;
         } catch (Exception e) {
             return false;
