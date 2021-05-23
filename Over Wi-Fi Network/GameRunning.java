@@ -1,12 +1,12 @@
 import java.io.Serializable;
 
 public class GameRunning implements Serializable {
-    public int row;
-    public int col;
-    public boolean chance;
+	private static final long serialVersionUID = 1L;
+	public int row;
+	public int col;
 
-    public GameRunning(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
+	public GameRunning(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
 }

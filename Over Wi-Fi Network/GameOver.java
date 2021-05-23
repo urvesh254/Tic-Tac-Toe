@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
 public class GameOver implements Serializable {
+    private static final long serialVersionUID = 2L;
     public boolean isWin;
     public Player winPlayer = null;
     public int r1, r2, r3;

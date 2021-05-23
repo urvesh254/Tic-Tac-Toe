@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
 public class Player implements Serializable {
+    private static final long serialVersionUID = 3L;
     public static final String X = "X";
     public static final String O = "O";
     private String name;
