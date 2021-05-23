@@ -87,7 +87,7 @@ public class Server {
         player2.player.setChar(Player.O);
         player2.player.setTurn(!chance);
 
-        // Send them back to the other player info. 
+        // Send them back to the other player info.
         player1.sendObject(player2.player);
         player2.sendObject(player1.player);
 
