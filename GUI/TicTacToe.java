@@ -60,25 +60,24 @@ public class TicTacToe extends JFrame implements ActionListener {
 		card = new CardLayout();
 		this.setLayout(card);
 
-		// // Initialize the startPanel
+		// Initialize the startPanel
 		startPanelInitialize();
 
-		// // Getting player info first time.
+		// Getting player info first time.
 		getPlayerInfo();
 
-		// // Initialize the gamePanel
+		// Initialize the gamePanel
 		gamePanelInitialize();
 
 		this.setResizable(false);
-		this.setSize(500, 500); 		//frame size
+		this.setSize(500, 500); //frame size
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		playTurn((chance ? player1 : player2), (Button)e.getSource());
+		playTurn((chance ? player1 : player2), (Button) e.getSource());
 
 		// If all place are filled then game is end.
 		if (emptySpace == 0 && Player.winPlayer == null) {
@@ -98,8 +97,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 		gameTitle.setBorder(new EmptyBorder(15, 0, 0, 0));
 		startPanel.add(gameTitle);
 
-		String RULES = "\n- Welcome to the TIC-TAC-TOE Game.\n\n"
-		               + "* RULES FOR TIC-TAC-TOE *\n"
+		String RULES = "\n- Welcome to the TIC-TAC-TOE Game.\n\n" + "* RULES FOR TIC-TAC-TOE *\n"
 		               + "1. The game is played on a grid that's 3 squares by 3 squares."
 		               + "\n2. You are X, your friend (or the computer in this case) is O. Players take turns putting their marks in empty squares."
 		               + "\n3. The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner."
@@ -121,7 +119,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 		JButton btnNext = new JButton("Next");
 		btnNext.setFont(new Font("Arial", Font.BOLD, 20));
 		btnNext.setAlignmentX(CENTER_ALIGNMENT);
-		btnNext.addActionListener( e -> {
+		btnNext.addActionListener(e -> {
 			card.show(getContentPane(), "infoPanel");
 		});
 		startPanel.add(btnNext);
@@ -207,34 +205,33 @@ public class TicTacToe extends JFrame implements ActionListener {
 		panel2.add(nameInfo);
 		panel2.add(player2_btn);
 
-		p1_X.addActionListener(e-> {
+		p1_X.addActionListener(e -> {
 			p2_X.setSelected(false);
 			p2_O.setSelected(true);
 		});
-		p1_O.addActionListener(e-> {
+		p1_O.addActionListener(e -> {
 			p2_X.setSelected(true);
 			p2_O.setSelected(false);
 		});
-		p2_X.addActionListener(e-> {
+		p2_X.addActionListener(e -> {
 			p1_X.setSelected(false);
 			p1_O.setSelected(true);
 		});
-		p2_O.addActionListener(e-> {
+		p2_O.addActionListener(e -> {
 			p1_X.setSelected(true);
 			p1_O.setSelected(false);
 		});
-
 
 		// Button for starting the game.
 		JButton btnStart = new JButton("Start Game");
 		btnStart.setFont(new Font("Arial", Font.BOLD, 20));
 		btnStart.setAlignmentX(CENTER_ALIGNMENT);
-		btnStart.addActionListener( e -> {
+		btnStart.addActionListener(e -> {
 			String p1Name = player1Name.getText();
 			String p2Name = player2Name.getText();
 			if (p1Name.isEmpty() || p2Name.isEmpty()) {
 				showMessage("Error", "Player name is not Empty.");
-			} else{
+			} else {
 				player1 = new Player(p1Name, player1_bg.getSelection().getActionCommand());
 				player2 = new Player(p2Name, player2_bg.getSelection().getActionCommand());
 				gameLabel.setText(String.format("%s's Turn (%s)", player1.name, player1.ch));
@@ -243,7 +240,6 @@ public class TicTacToe extends JFrame implements ActionListener {
 			player1Name.setText("");
 			player2Name.setText("");
 		});
-
 
 		infoPanel.add(panel1);
 		infoPanel.add(panel2);
@@ -282,8 +278,9 @@ public class TicTacToe extends JFrame implements ActionListener {
 		JButton btnStartNew = new JButton("Start New");
 		btnStartNew.setFont(new Font("Arial", Font.BOLD, 20));
 		btnStartNew.setAlignmentX(CENTER_ALIGNMENT);
-		btnStartNew.addActionListener(e-> {
-			int result = JOptionPane.showConfirmDialog(null, "Do you want to start the new game? ", "Confirm Dialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		btnStartNew.addActionListener(e -> {
+			int result = JOptionPane.showConfirmDialog(null, "Do you want to start the new game? ", "Confirm Dialog",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (result == JOptionPane.YES_OPTION) {
 				resetGamePanel(true);
 				card.show(getContentPane(), "startPanel");
@@ -294,15 +291,15 @@ public class TicTacToe extends JFrame implements ActionListener {
 		JButton btnRestart = new JButton("Restart");
 		btnRestart.setFont(new Font("Arial", Font.BOLD, 20));
 		btnRestart.setAlignmentX(CENTER_ALIGNMENT);
-		btnRestart.addActionListener(e-> {
-			int result = JOptionPane.showConfirmDialog(null, "Do you want to restart the game?", "Confirm Dialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		btnRestart.addActionListener(e -> {
+			int result = JOptionPane.showConfirmDialog(null, "Do you want to restart the game?", "Confirm Dialog",
+			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (result == JOptionPane.YES_OPTION) {
 				resetGamePanel(false);
 				card.show(getContentPane(), "gamePanel");
 			}
 		});
 		btnPanel.add(btnRestart);
-
 
 		this.add(gamePanel, "gamePanel");
 	}
@@ -338,7 +335,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 		emptySpace--;
 		chance = !chance;
 		Player p = chance ? player1 : player2;
-		gameLabel.setText(String.format("%s's Turn (%S)", p.name , p.ch));
+		gameLabel.setText(String.format("%s's Turn (%S)", p.name, p.ch));
 		if (checkCondition()) {
 			exitMessage();
 		}
@@ -405,7 +402,8 @@ public class TicTacToe extends JFrame implements ActionListener {
 		try {
 			gamePanel.remove(btnPanel);
 			validate();
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 
 		chance = true;
 		Player.winPlayer = null;
@@ -449,6 +447,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 	}
 
 	public static void main(String arg[]) {
-		new TicTacToe().setVisible(true);;
+		new TicTacToe().setVisible(true);
+
 	}
 }
