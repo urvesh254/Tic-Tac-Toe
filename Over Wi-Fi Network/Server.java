@@ -187,12 +187,12 @@ public class Server {
     }
 
     public static void main(String[] args) {
-
+        ServerSocket server = null;
         try {
             HOST_NAME = InetAddress.getLocalHost().getHostName();
             HOST_ADDRESS = InetAddress.getLocalHost().getHostAddress();
 
-            ServerSocket server = new ServerSocket(PORT);
+            server = new ServerSocket(PORT);
             System.out.println(String.format("\nServer HOST NAME : %s", HOST_NAME));
             System.out.println(String.format("Server HOST ADDRESS : %s", HOST_ADDRESS));
             System.out.println(String.format("Server is started on Port No.: %d\n", PORT));
@@ -217,6 +217,13 @@ public class Server {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            if (server != null) {
+                try {
+                    server.close();
+                } catch (IOException e) {
+                }
+            }
         }
     }
 }
