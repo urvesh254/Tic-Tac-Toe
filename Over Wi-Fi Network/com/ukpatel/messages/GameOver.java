@@ -1,3 +1,5 @@
+package com.ukpatel.messages;
+
 import java.io.Serializable;
 
 public class GameOver implements Serializable {

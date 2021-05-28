@@ -1,10 +1,12 @@
+package com.ukpatel.layouts;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 
 public class Button extends JButton {
     public static final Color WIN_COLOR = new Color(66, 217, 20);
-    int row, col;
+    public int row, col;
 
     public Button(String text, int row, int col) {
         super(text);

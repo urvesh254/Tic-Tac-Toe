@@ -1,6 +1,14 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.ukpatel.layouts.Button;
+import com.ukpatel.layouts.GamePanel;
+import com.ukpatel.layouts.InfoPanel;
+import com.ukpatel.layouts.WaitingPanel;
+import com.ukpatel.messages.GameOver;
+import com.ukpatel.messages.GameRunning;
+import com.ukpatel.messages.Player;
+
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
